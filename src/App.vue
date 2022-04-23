@@ -1,15 +1,29 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <login-view v-if="!showChatView" @login="getUsername" />
+  <chat-view v-if="showChatView" :username="username" />
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import LoginView from "./components/LoginView.vue";
+import ChatView from "./components/ChatView.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    LoginView,
+    ChatView,
+  },
+  data() {
+    return {
+      showChatView: false,
+      username: "",
+    };
+  },
+  methods: {
+    getUsername(username) {
+      this.username = username;
+      this.showChatView = true;
+    },
   },
 };
 </script>
@@ -19,7 +33,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
